@@ -11,11 +11,11 @@ import random
 
 success_in_finding_activeClass = False
 
-def tryToBookApointment():
+def tryToBookApointment(location):
   global success_in_finding_activeClass
   # open chrome window
   current_path = str(pathlib.Path(__file__).parent.resolve())
-  chrome_driver_binary = current_path + "/chromedriver"
+  chrome_driver_binary = current_path + "/chromedriver_linux64"
   service = Service(executable_path=chrome_driver_binary)
   options = webdriver.ChromeOptions()
   #options.binary_location = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
@@ -38,7 +38,7 @@ def tryToBookApointment():
 
   #input center location and service type
   enterCenterLocation = driver.find_element("id", "location")
-  enterCenterLocation.send_keys("Toronto")
+  enterCenterLocation.send_keys(location)
 
   # sleep here
   sleep(random.uniform(2.01,4.09))
@@ -97,6 +97,9 @@ def tryToBookApointment():
         driver.find_element("id", "service").send_keys("I need to renew my passport. Thankyou!")
         sleep(random.uniform(2.34,4.32))
         
+        driver.find_element(By.XPATH, "//input[@type='submit']").click()
+        sleep(random.uniform(1.12,3.11))
+
         success_in_finding_activeClass = True
         break
       except NoSuchElementException:
@@ -110,17 +113,19 @@ def tryToBookApointment():
 
 print("Starting to book appointment")
 times = 0
+locations = ["Brampton", "Mississauga", "Toronto"]
 while success_in_finding_activeClass == False:
   times += 1
   print("Attempt #", times)
   print("Current date and time: ", datetime.now())
-  tryToBookApointment()
+  randomLocation = random.choice(locations)
+  print("Trying to book appointment at: ", randomLocation)
+  tryToBookApointment(randomLocation)
   if success_in_finding_activeClass == False:
     # sleep here
-    trying_in = random.uniform(150.13,1000.99)
+    trying_in = random.uniform(91.13,496.99)
     print("Trying again in", trying_in / 60, "minutes")
     sleep(trying_in)
-    times += 1
   else:
     print("Finished!")
     break
