@@ -18,7 +18,16 @@ def tryToBookApointment():
   chrome_driver_binary = current_path + "/chromedriver"
   service = Service(executable_path=chrome_driver_binary)
   options = webdriver.ChromeOptions()
-  options.binary_location = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+  #options.binary_location = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+
+  # Maybe needed in some environments where GUI is not available
+  options.add_argument('--headless')  # Run Chrome in headless mode
+  options.add_argument('--disable-gpu')  # Disable GPU acceleration
+
+  # Other optional configurations
+  options.add_argument('--no-sandbox')  # May be needed in some environments
+  options.add_argument('--disable-dev-shm-usage')  # May be needed in some environments
+
   driver = webdriver.Chrome(service=service, options=options)
 
   # open url source
