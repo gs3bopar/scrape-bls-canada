@@ -86,13 +86,13 @@ def tryToBookApointment(location):
         # sleep here
         sleep(random.uniform(3.01,4.03))
 
-        driver.find_element("id", "name").send_keys("Gurkaran Singh Boparai")
+        driver.find_element("id", "name").send_keys("")
         sleep(random.uniform(1.04,2.08))
-        driver.find_element("id", "phone").send_keys("5197814392")
+        driver.find_element("id", "phone").send_keys("")
         sleep(random.uniform(2.0,3.08))
-        driver.find_element("id", "passport_no").send_keys("M0147445")
+        driver.find_element("id", "passport_no").send_keys("")
         sleep(random.uniform(1.5,3.1))
-        driver.find_element("id", "email").send_keys("gurkaransingh10@gmail.com")
+        driver.find_element("id", "email").send_keys("")
         sleep(random.uniform(0.8,2.02))
         driver.find_element("id", "service").send_keys("I need to renew my passport. Thankyou!")
         sleep(random.uniform(2.34,4.32))
