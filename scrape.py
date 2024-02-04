@@ -118,7 +118,8 @@ def tryToBookApointment(location):
         # Click the link
         link.click()
 
-        sleep(random.uniform(3.49,5.51))
+        # Need to sleep here as email is sent and might take time to receive
+        sleep(random.uniform(4.67,5.78))
 
         success_in_finding_activeClass = True
         break
