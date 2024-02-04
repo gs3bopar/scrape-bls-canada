@@ -15,7 +15,7 @@ def tryToBookApointment(location):
   global success_in_finding_activeClass
   # open chrome window
   current_path = str(pathlib.Path(__file__).parent.resolve())
-  chrome_driver_binary = current_path + "/chromedriver_linux64"
+  chrome_driver_binary = current_path + "/chromedriver"
   service = Service(executable_path=chrome_driver_binary)
   options = webdriver.ChromeOptions()
   #options.binary_location = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
@@ -70,7 +70,7 @@ def tryToBookApointment(location):
     for td in td_rows:
       try:
         active_td = td.find_element(By.XPATH, "//td[@title='Book']")
-                # Try to book an appointment 
+        # Try to book an appointment 
         # print("Found activeClass in this row:", active_td.text)
         active_td.click()
 
@@ -86,6 +86,7 @@ def tryToBookApointment(location):
         # sleep here
         sleep(random.uniform(3.01,4.03))
 
+        # APPLICANT DETAILS
         driver.find_element("id", "name").send_keys("")
         sleep(random.uniform(1.04,2.08))
         driver.find_element("id", "phone").send_keys("")
@@ -94,11 +95,30 @@ def tryToBookApointment(location):
         sleep(random.uniform(1.5,3.1))
         driver.find_element("id", "email").send_keys("")
         sleep(random.uniform(0.8,2.02))
-        driver.find_element("id", "service").send_keys("I need to renew my passport. Thankyou!")
+        driver.find_element("id", "service").send_keys("")
         sleep(random.uniform(2.34,4.32))
         
         driver.find_element(By.XPATH, "//input[@type='submit']").click()
-        sleep(random.uniform(1.12,3.11))
+
+        sleep(random.uniform(7.50,8.11))
+
+        # On success fetch following details and print them to screen
+        # Applicant Name
+        # Reference Number
+        # Passport Number
+        # Appointment date & time
+        # Application Type
+        # Find the table which shows Applicant Details within the datepicker div
+        table_element_applicant = driver.find_element(By.CLASS_NAME, "borderAll table")
+        print("Details: ", table_element_applicant.text)
+
+        sleep(random.uniform(2.43,3.11))
+
+        link = driver.find_elements(By.XPATH, "//a[@class='btn secondry-btn']")[1]
+        # Click the link
+        link.click()
+
+        sleep(random.uniform(3.49,5.51))
 
         success_in_finding_activeClass = True
         break
