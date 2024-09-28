@@ -6,40 +6,40 @@ from time import sleep
 
 from selenium import webdriver
 from selenium.common.exceptions import (
-    JavascriptException,
     NoSuchElementException,
+    TimeoutException,
     WebDriverException,
 )
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import Select, WebDriverWait
 
 success_in_finding_activeClass = False
 
 
 # Function to handle popup
-def handle_popup(driver):
-    script = """
-    var popup = document.querySelector('.bloggerform');
-    if (popup && popup.style.display === 'block') {
-        var closeButton = popup.querySelector('.cl');
-        if (closeButton) {
-            closeButton.click();
-            return true;  // Popup found and closed
-        }
-    }
-    return false;  // No popup found or couldn't close
-    """
-
+def handle_popup(driver, timeout=5):
     try:
-        result = driver.execute_script(script)
-        if result:
+        # Wait for the popup to be present
+        popup = WebDriverWait(driver, timeout).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "bloggerform"))
+        )
+
+        # Check if the popup is displayed
+        if popup.is_displayed():
+            close_button = popup.find_element(By.CLASS_NAME, "cl")
+            close_button.click()
             print("Popup was found and closed.")
+            return True
         else:
-            print("No popup was found or it was not displayed.")
-        return result
-    except JavascriptException as js_error:
-        print(f"JavaScript error occurred while handling popup: {js_error}")
+            print("Popup was found but not displayed.")
+            return False
+    except TimeoutException:
+        print("No popup appeared within the timeout period.")
+        return False
+    except NoSuchElementException:
+        print("Popup or close button not found.")
         return False
     except Exception as e:
         print(f"An unexpected error occurred while handling popup: {e}")
