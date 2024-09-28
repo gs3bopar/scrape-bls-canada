@@ -42,6 +42,9 @@ def tryToBookApointment(location):
 
   # sleep here
   sleep(random.uniform(2.01,4.09))
+
+  # Close the popup if it appears
+  driver.execute_script("var popup = document.querySelector('.bloggerform'); if (popup && popup.style.display === 'block') popup.querySelector('.cl').click();")
   
   enterServiceType = driver.find_element("id", "service_type")
   enterServiceType.send_keys("Passport")
@@ -76,6 +79,12 @@ def tryToBookApointment(location):
 
         # sleep here
         sleep(random.uniform(2.01,3.03))
+
+        # Close the popup if it appears
+        driver.execute_script("var popup = document.querySelector('.bloggerform'); if (popup && popup.style.display === 'block') popup.querySelector('.cl').click();")
+
+        # sleep here
+        sleep(random.uniform(1.56,2.63))
 
         # perform on click on Appointment date
         enterAppointmentSlot = driver.find_element("id", "app_slot")
