@@ -42,5 +42,9 @@
   - `sudo ln -s /usr/bin/google-chrome-stable /usr/bin/chromium`.
 9. Start a named session: `screen -S bls-scrape`.
 10. Run your Python program.
-11. To detach from the screen: `Ctrl+a d`.
-12. To attach to the screen again: `screen -r bls-scrape`.
+11. To detach from the screen: `Ctrl+a d`. Note: The script will still be running in the backgroud.
+12. To list running screens: `screen -ls`
+13. To attach to the screen again: `screen -r bls-scrape`.
+
+
+If you encounter an error related to `chromedriver`, please ensure that your version of Chrome is compatible with the version of `chromedriver` you are using. You can download the latest version of `chromedriver` from: https://googlechromelabs.github.io/chrome-for-testing/
