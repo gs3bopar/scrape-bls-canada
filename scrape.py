@@ -63,7 +63,7 @@ def tryToBookApointment(location):
         global success_in_finding_activeClass
         # open chrome window
         current_path = str(pathlib.Path(__file__).parent.resolve())
-        chrome_driver_binary = current_path + "/chromedriver"
+        chrome_driver_binary = current_path + "/chromedriver_linux64"
         service = Service(executable_path=chrome_driver_binary)
         options = webdriver.ChromeOptions()
         # options.binary_location = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
